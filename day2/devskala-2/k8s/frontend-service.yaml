@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devskala2-frontend
+  namespace: skala26a-ai1
+spec:
+  selector:
+    app: devskala2-frontend
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devskala2-frontend
+  namespace: skala26a-ai1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devskala2-frontend
+  template:
+    metadata:
+      labels:
+        app: devskala2-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: <harbor-registry>/skala26a-ai1/devskala2-frontend:latest
+          ports:
+            - containerPort: 80
