@@ -14,7 +14,7 @@ permissions:
 env:
     AWS_REGION: ${{ vars.AWS_REGION }}
     EKS_CLUSTER_NAME: skala-2025
-    K8S_NAMESPACE: skala26a-ai1
+    K8S_NAMESPACE: skala3-ai1
     HARBOR_REGISTRY: ${{ vars.HARBOR_REGISTRY }}
     HARBOR_PROJECT: skala26a-ai1
     BACKEND_IMAGE_NAME: ${{ vars.BACKEND_IMAGE_NAME }}

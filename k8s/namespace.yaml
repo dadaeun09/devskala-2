@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: skala26a-ai1
+  name: skala3-ai1

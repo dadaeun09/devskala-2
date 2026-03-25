@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: devskala2-frontend
-  namespace: skala26a-ai1
+  namespace: skala3-ai1
 spec:
   replicas: 1
   selector:

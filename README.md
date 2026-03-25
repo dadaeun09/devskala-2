@@ -8,7 +8,7 @@ Vue 3 + Spring Boot 기반 Simple Todo App 모노레포입니다.
 - Backend: Todo REST API (`GET/POST/PATCH/DELETE`)
 - Frontend: Vue 단일 페이지 Todo UI
 - 배포: Docker + Kubernetes + GitHub Actions + Harbor + EKS
-- Kubernetes namespace 고정: `skala26a-ai1`
+- Kubernetes namespace 고정: `skala3-ai1`
 
 ## 기술 스택
 
@@ -89,9 +89,9 @@ kubectl apply -f k8s/frontend-service.yaml
 
 ```bash
 kubectl get ns
-kubectl get deploy -n skala26a-ai1
-kubectl get svc -n skala26a-ai1
-kubectl get pods -n skala26a-ai1
+kubectl get deploy -n skala3-ai1
+kubectl get svc -n skala3-ai1
+kubectl get pods -n skala3-ai1
 ```
 
 ## GitHub Actions 동작 흐름
@@ -103,7 +103,7 @@ kubectl get pods -n skala26a-ai1
 3. frontend build
 4. backend/frontend 이미지 각각 Harbor push (`<sha7>`, `latest`)
 5. AWS OIDC role assume 후 EKS kubeconfig 갱신
-6. `kubectl set image`로 `skala26a-ai1` namespace의 deployment 이미지 업데이트
+6. `kubectl set image`로 `skala3-ai1` namespace의 deployment 이미지 업데이트
 7. rollout status 확인
 
 ## GitHub Variables / Secrets 설정
@@ -112,7 +112,7 @@ Actions Variables:
 
 - `AWS_REGION=ap-northeast-2`
 - `EKS_CLUSTER_NAME=skala-2025`
-- `K8S_NAMESPACE=skala26a-ai1`
+- `K8S_NAMESPACE=skala3-ai1` (워크플로우 `env`와 동일하게 맞추기)
 - `HARBOR_REGISTRY=<하버 주소>`
 - `HARBOR_PROJECT=skala26a-ai1`
 - `BACKEND_IMAGE_NAME=devskala2-backend`
