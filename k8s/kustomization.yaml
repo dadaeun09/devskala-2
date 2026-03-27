@@ -16,6 +16,6 @@ resources:
 
 images:
   - name: amdp-registry.skala-ai.com/skala26a-ai1/devskala2-backend
-    newTag: latest
+    newTag: 635f655
   - name: amdp-registry.skala-ai.com/skala26a-ai1/devskala2-frontend
-    newTag: latest
+    newTag: 635f655
