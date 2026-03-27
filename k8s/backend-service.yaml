@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: devskala2-backend
-  namespace: skala3-ai1
+    name: devskala2-backend
+    namespace: skala3-ai1
 spec:
-  selector:
-    app: devskala2-backend
-  type: ClusterIP
-  ports:
-    - port: 8080
-      targetPort: 8080
+    selector:
+        app: devskala2-backend
+    type: ClusterIP
+    ports:
+        - port: 8080
+          targetPort: 8080

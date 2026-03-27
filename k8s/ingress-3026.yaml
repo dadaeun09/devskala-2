@@ -1,0 +1,48 @@
+# public-nginx + 경로 프리픽스 /3026
+# host는 본인 도메인으로 변경 후 적용
+# kubectl apply -f k8s/ingress-3026.yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: 3026-ingress-api
+    namespace: skala3-ai1
+spec:
+    ingressClassName: public-nginx
+    rules:
+        - host: ingress.skala25a.project.skala-ai.com
+          http:
+              paths:
+                  - path: /api
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: devskala2-backend
+                            port:
+                                number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: 3026-ingress-web
+    namespace: skala3-ai1
+    annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+        # cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+    ingressClassName: public-nginx
+    # tls:
+    #   - hosts:
+    #       - ingress.skala25a.project.skala-ai.com
+    #     secretName: skala25-project-tls-cert
+    rules:
+        - host: ingress.skala25a.project.skala-ai.com
+          http:
+              paths:
+                  - path: /3026(/|$)(.*)
+                    pathType: ImplementationSpecific
+                    backend:
+                        service:
+                            name: devskala2-frontend
+                            port:
+                                number: 80

@@ -1,0 +1,15 @@
+# 적용 순서: namespace → pvc → deployment
+# kubectl apply -f k8s/namespace.yaml
+# kubectl apply -f k8s/backend-pvc.yaml
+# kubectl apply -f k8s/backend-deployment.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: devskala2-backend-pvc
+  namespace: skala3-ai1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

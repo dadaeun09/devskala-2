@@ -1,0 +1,30 @@
+# Argo CD Application — GitOps (이름 유지: 앱 메타데이터 name 만 추가)
+#
+# 클러스터에 Argo CD 설치 후, repo URL 만 본인 저장소로 수정해 적용:
+#   kubectl apply -n argocd -f argocd/application-devskala2.yaml
+#
+# 동기화 대상: 저장소 루트의 k8s/ (kustomization.yaml 포함 → kustomize 빌드)
+# 대상 네임스페이스·리소스 이름은 매니페스트 그대로 (skala3-ai1, devskala2-*, 3026-ingress-* 등)
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devskala2
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/REPLACE_ORG/devskala.git
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: skala3-ai1
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,32 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devskala2-backend
-  namespace: skala3-ai1
+    name: devskala2-backend
+    namespace: skala3-ai1
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: devskala2-backend
-  template:
-    metadata:
-      labels:
-        app: devskala2-backend
-    spec:
-      containers:
-        - name: backend
-          image: <harbor-registry>/skala26a-ai1/devskala2-backend:latest
-          ports:
-            - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 20
+    replicas: 1
+    selector:
+        matchLabels:
+            app: devskala2-backend
+    template:
+        metadata:
+            labels:
+                app: devskala2-backend
+        spec:
+            volumes:
+                - name: backend-data
+                  persistentVolumeClaim:
+                      claimName: devskala2-backend-pvc
+            containers:
+                - name: backend
+                  image: amdp-registry.skala-ai.com/skala26a-ai1/devskala2-backend
+                  ports:
+                      - containerPort: 8080
+                  env:
+                      - name: SPRING_PROFILES_ACTIVE
+                        value: k8s
+                  volumeMounts:
+                      - name: backend-data
+                        mountPath: /data/h2
+                  readinessProbe:
+                      httpGet:
+                          path: /
+                          port: 8080
+                      initialDelaySeconds: 5
+                      periodSeconds: 10
+                  livenessProbe:
+                      httpGet:
+                          path: /
+                          port: 8080
+                      initialDelaySeconds: 15
+                      periodSeconds: 20

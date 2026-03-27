@@ -1,0 +1,21 @@
+# kustomize build . | kubectl apply -f -
+# ArgoCD: path k8s, directory 포함 시 자동으로 kustomize 빌드
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: skala3-ai1
+
+resources:
+  - namespace.yaml
+  - backend-pvc.yaml
+  - backend-service.yaml
+  - backend-deployment.yaml
+  - frontend-service.yaml
+  - frontend-deployment.yaml
+  - ingress-3026.yaml
+
+images:
+  - name: amdp-registry.skala-ai.com/skala26a-ai1/devskala2-backend
+    newTag: latest
+  - name: amdp-registry.skala-ai.com/skala26a-ai1/devskala2-frontend
+    newTag: latest
